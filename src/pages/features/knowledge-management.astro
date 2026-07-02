@@ -1,0 +1,250 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const pipeline = [
+  { step: 'Inquiry received', desc: 'A resident question comes in via chatbot, email, or 311. It hits the KM inbox as a ticket.', color: 'bg-gray-100 text-gray-500', icon: '📥' },
+  { step: 'Staff drafts a reply', desc: 'The assigned staff member writes the canonical answer. AI suggests phrasing based on similar approved answers.', color: 'bg-blue-100 text-blue-600', icon: '✏️' },
+  { step: 'AI quality gate', desc: 'Automated check flags PII, legal liability language, outdated dates, and accessibility issues before any human review.', color: 'bg-violet-100 text-violet-600', icon: '🤖' },
+  { step: 'Supervisor review', desc: 'A manager approves, requests changes, or escalates. No article publishes without an explicit approval action.', color: 'bg-amber-100 text-amber-600', icon: '👁️' },
+  { step: 'Published to KB', desc: 'The article goes live in the knowledge base and the chatbot begins answering the question automatically from this moment on.', color: 'bg-emerald-100 text-emerald-600', icon: '✅' },
+];
+---
+
+<Layout
+  title="Knowledge Management — Viv KM"
+  description="The editorial pipeline that turns resident questions into approved, reusable knowledge base articles. Built for municipal governments."
+>
+  <Nav />
+
+  <!-- ═══ HERO ═══ -->
+  <section class="relative bg-ink min-h-[85vh] flex items-center overflow-hidden pt-16">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-20 left-1/3 w-[700px] h-[500px] bg-violet-900/15 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-[400px] h-[300px] bg-brand/8 rounded-full blur-3xl"></div>
+      <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-6 py-24 grid lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 rounded-full px-4 py-1.5 mb-7">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span class="text-xs font-semibold text-violet-400">Knowledge Management</span>
+        </div>
+
+        <h1 class="text-4xl lg:text-[52px] font-black text-white leading-[1.06] tracking-tight mb-6">
+          Every resident question,<br /><span class="text-violet-400">answered once. Used forever.</span>
+        </h1>
+
+        <p class="text-lg text-gray-300 leading-relaxed mb-5 max-w-lg">
+          The Viv KM pipeline turns the hundreds of questions your office answers every week into a growing, searchable, AI-powered knowledge base — reviewed and approved by your team before anything goes public.
+        </p>
+        <p class="text-gray-400 leading-relaxed mb-10 max-w-lg">
+          No more answering the same question twenty times. No more inconsistent responses across staff. One approved answer — the right one — delivered automatically to every resident who asks.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <a href="mailto:kalman@vivwebsolutions.com?subject=KM Platform Demo"
+             class="inline-flex items-center gap-2 bg-violet-500 hover:bg-violet-600 text-white font-semibold px-6 py-3.5 rounded-xl transition-colors text-sm shadow-lg shadow-violet-500/25">
+            See the Platform
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#pipeline"
+             class="inline-flex items-center gap-2 bg-white/8 border border-white/12 text-white font-semibold px-6 py-3.5 rounded-xl transition-colors text-sm hover:bg-white/14">
+            See the pipeline
+          </a>
+        </div>
+      </div>
+
+      <!-- KB mockup -->
+      <div class="hidden lg:block">
+        <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-2xl shadow-black/20">
+          <!-- Header -->
+          <div class="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 bg-gray-50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-violet-500 flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-gray-900">Knowledge Base</div>
+                <div class="text-[10px] text-gray-400">City of Springfield · All Departments</div>
+              </div>
+            </div>
+            <div class="bg-emerald-100 text-emerald-700 text-[10px] font-semibold px-2 py-0.5 rounded-full">847 articles published</div>
+          </div>
+
+          <!-- Articles -->
+          <div class="divide-y divide-gray-50">
+            {[
+              { title: 'How to Apply for a Building Permit', dept: 'Building & Permits', status: 'live', answers: '1,243', tag: 'Permits' },
+              { title: 'Property Tax Payment Methods & Deadlines', dept: 'Finance', status: 'live', answers: '891', tag: 'Taxes' },
+              { title: 'Bulk Pickup Schedule by Ward', dept: 'Public Works', status: 'live', answers: '634', tag: 'Sanitation' },
+              { title: 'How to Dispute a Parking Ticket', dept: 'Finance', status: 'review', answers: null, tag: 'Parking' },
+              { title: 'Summer Concert Series Dates', dept: 'Parks & Rec', status: 'draft', answers: null, tag: 'Events' },
+            ].map(a => (
+              <div class="flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition-colors">
+                <div class="flex-1 min-w-0">
+                  <div class="text-xs font-medium text-gray-800 truncate">{a.title}</div>
+                  <div class="text-[10px] text-gray-400 mt-0.5">{a.dept} · <span class="text-gray-300">{a.tag}</span></div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  {a.answers && <span class="text-[10px] text-gray-400">{a.answers}×</span>}
+                  <span class:list={[
+                    "text-[9px] font-bold px-1.5 py-0.5 rounded-full border",
+                    a.status === 'live' ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                    : a.status === 'review' ? 'bg-amber-50 text-amber-700 border-amber-100'
+                    : 'bg-gray-50 text-gray-500 border-gray-100',
+                  ]}>
+                    {a.status === 'live' ? 'In KB' : a.status === 'review' ? 'Under Review' : 'Draft'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="px-5 py-3 border-t border-gray-100 bg-gray-50">
+            <div class="text-[10px] text-gray-400">12 articles awaiting review · 4 new inquiries in inbox</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ THE PIPELINE ═══ -->
+  <section id="pipeline" class="bg-white py-20 border-b border-gray-100">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <div class="text-xs font-semibold text-violet-500 uppercase tracking-widest mb-3">The Editorial Pipeline</div>
+        <h2 class="text-3xl font-black text-gray-900 mb-4">Every answer earns its way in.</h2>
+        <p class="text-gray-500 max-w-xl mx-auto">Nothing is published without your team's review. Every step is logged. Every article is attributable.</p>
+      </div>
+
+      <div class="relative">
+        <!-- Connector line -->
+        <div class="absolute left-8 top-10 bottom-10 w-0.5 bg-gray-100 hidden md:block"></div>
+
+        <div class="space-y-5">
+          {pipeline.map((s, i) => (
+            <div class="flex gap-6 items-start">
+              <div class:list={["w-16 h-16 rounded-2xl flex items-center justify-center text-2xl shrink-0 relative z-10 border-2 border-white shadow-sm", s.color.replace('text-', 'border-').split(' ')[0].replace('bg-', 'bg-')]}>
+                {s.icon}
+              </div>
+              <div class="flex-1 bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+                <div class="flex items-center gap-3 mb-2">
+                  <div class:list={["text-[10px] font-black px-2 py-0.5 rounded-full", s.color]}>STEP {i + 1}</div>
+                  <h3 class="font-bold text-gray-900 text-sm">{s.step}</h3>
+                </div>
+                <p class="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SAFETY FEATURES ═══ -->
+  <section class="bg-slate-50 border-y border-gray-100 py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-14 items-center">
+        <div>
+          <div class="text-xs font-semibold text-violet-500 uppercase tracking-widest mb-4">Built-in Safety</div>
+          <h2 class="text-3xl font-black text-gray-900 mb-6">The AI quality gate catches what humans miss.</h2>
+          <p class="text-gray-500 leading-relaxed mb-8">
+            Before any draft reaches a reviewer, an automated quality gate checks for common issues that create legal, privacy, or accessibility risks.
+          </p>
+          <div class="space-y-4">
+            {[
+              { icon: '🔒', title: 'PII Detection', body: "SSNs, account numbers, driver's license numbers, and medical information are flagged and blocked before any article is published." },
+              { icon: '⚖️', title: 'Legal Risk Flags', body: 'Admission-style language, litigation references, and advice that should only come from city attorneys are caught before they reach residents.' },
+              { icon: '♿', title: 'ADA Accessibility', body: 'Content is checked for reading level, heading structure, and plain language compliance — so every resident can use the KB.' },
+              { icon: '📅', title: 'Outdated Dates', body: 'Articles containing dates in the past are flagged for review before going live — catches expired deadlines and old program dates.' },
+            ].map(f => (
+              <div class="flex items-start gap-4">
+                <span class="text-xl shrink-0">{f.icon}</span>
+                <div>
+                  <div class="font-semibold text-gray-900 text-sm">{f.title}</div>
+                  <div class="text-xs text-gray-500 leading-relaxed mt-0.5">{f.body}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+          <div class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-4">AI Quality Gate — Draft Review</div>
+          <div class="space-y-3">
+            {[
+              { type: 'PII Flag', msg: 'Draft contains a resident account number (123-456) — remove before publishing.', severity: 'high' },
+              { type: 'Date Alert', msg: 'Deadline date "March 15, 2025" is in the past — confirm current deadline.', severity: 'med' },
+              { type: 'Reading Level', msg: 'Grade 12.4 reading level — recommend simplifying to grade 8 for accessibility.', severity: 'low' },
+              { type: 'All Clear', msg: 'No legal risk language detected. No external URLs that resolve to errors.', severity: 'ok' },
+            ].map(f => (
+              <div class:list={[
+                "rounded-xl border p-3.5 flex items-start gap-3",
+                f.severity === 'high' ? 'bg-red-50 border-red-100'
+                : f.severity === 'med' ? 'bg-amber-50 border-amber-100'
+                : f.severity === 'low' ? 'bg-blue-50 border-blue-100'
+                : 'bg-emerald-50 border-emerald-100',
+              ]}>
+                <span class:list={[
+                  "text-[9px] font-black px-1.5 py-0.5 rounded-full shrink-0 mt-0.5",
+                  f.severity === 'high' ? 'bg-red-100 text-red-700'
+                  : f.severity === 'med' ? 'bg-amber-100 text-amber-700'
+                  : f.severity === 'low' ? 'bg-blue-100 text-blue-700'
+                  : 'bg-emerald-100 text-emerald-700',
+                ]}>{f.type}</span>
+                <p class="text-xs text-gray-600 leading-relaxed">{f.msg}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT THE KB BECOMES ═══ -->
+  <section class="bg-white py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <div class="text-xs font-semibold text-violet-500 uppercase tracking-widest mb-3">The Compounding Effect</div>
+        <h2 class="text-3xl font-black text-gray-900 mb-4">The KB gets smarter every week.</h2>
+        <p class="text-gray-500 max-w-xl mx-auto">Each approved article reduces staff workload going forward. The knowledge base compounds — the more you add, the less work comes in.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        {[
+          { n: 'Year 1', sub: 'Foundation', qs: '~200 articles', pct: '60%', label: 'of common questions auto-answered', body: 'Core questions across your main departments are documented. Staff still handle the tail.' },
+          { n: 'Year 2', sub: 'Growth', qs: '~500 articles', pct: '82%', label: 'of chatbot inquiries handled without staff', body: 'Seasonal questions, edge cases, and second-tier FAQs fill in. Escalations drop significantly.' },
+          { n: 'Year 3+', sub: 'Maturity', qs: '800+ articles', pct: '91%', label: 'of resident questions answered automatically', body: 'Staff answer only genuinely complex or unusual questions. Everything else runs on autopilot.' },
+        ].map(y => (
+          <div class="bg-slate-50 border border-gray-100 rounded-2xl p-6">
+            <div class="text-xs font-black text-gray-400 mb-1">{y.n}</div>
+            <div class="text-sm font-bold text-violet-600 mb-4">{y.sub} · {y.qs}</div>
+            <div class="text-4xl font-black text-gray-900 mb-1">{y.pct}</div>
+            <div class="text-xs text-gray-500 mb-4">{y.label}</div>
+            <p class="text-xs text-gray-500 leading-relaxed border-t border-gray-100 pt-4">{y.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="bg-gradient-to-br from-violet-900 via-violet-700 to-brand py-20">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-black text-white mb-4">See the editorial pipeline in action.</h2>
+      <p class="text-violet-200 mb-10 max-w-lg mx-auto">
+        We'll walk you through a live demo on a real municipal knowledge base — from incoming inquiry to published article to automatic chatbot answer.
+      </p>
+      <a href="mailto:kalman@vivwebsolutions.com?subject=Knowledge Management Demo"
+         class="inline-flex items-center gap-2 bg-white text-violet-700 font-bold px-8 py-4 rounded-xl hover:bg-violet-50 transition-colors shadow-xl shadow-black/20 text-sm">
+        Book a 30-Minute Demo
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

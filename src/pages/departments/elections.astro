@@ -1,0 +1,428 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const kbArticles = [
+  { title: 'How to Register to Vote', status: 'in_kb', answers: 847, votes: 124, dept: 'Voter Services' },
+  { title: 'Polling Hours & Election Day FAQ', status: 'in_kb', answers: 1243, votes: 201, dept: 'Voter Services' },
+  { title: 'Absentee / Mail Ballot Request', status: 'in_kb', answers: 623, votes: 98, dept: 'Voter Services' },
+  { title: 'Ballot Drop Box Locations & Hours', status: 'in_kb', answers: 389, votes: 67, dept: 'Voter Services' },
+  { title: 'Poll Worker Application & Pay', status: 'in_kb', answers: 156, votes: 41, dept: 'Poll Operations' },
+  { title: 'How to Find Your Polling Place', status: 'in_kb', answers: 1087, votes: 183, dept: 'Voter Services' },
+  { title: 'Voter ID Requirements', status: 'in_kb', answers: 412, votes: 73, dept: 'Voter Services' },
+  { title: 'Sample Ballot – November Election', status: 'in_kb', answers: 312, votes: 55, dept: 'Candidates' },
+  { title: 'How to Run for Office – Filing Requirements', status: 'drafting', answers: 0, votes: 0, dept: 'Candidates' },
+  { title: 'Campaign Finance Disclosure Deadlines', status: 'under_review', answers: 0, votes: 0, dept: 'Candidates' },
+  { title: 'Write-In Candidate Process', status: 'under_review', answers: 0, votes: 0, dept: 'Candidates' },
+  { title: 'Election Results – Certification Timeline', status: 'new', answers: 0, votes: 0, dept: 'Results' },
+];
+
+const statusLabel = { in_kb: 'In KB', drafting: 'Drafting', under_review: 'Under Review', new: 'New' };
+const statusColor = {
+  in_kb: 'bg-emerald-50 text-emerald-700 border-emerald-100',
+  drafting: 'bg-blue-50 text-blue-700 border-blue-100',
+  under_review: 'bg-amber-50 text-amber-700 border-amber-100',
+  new: 'bg-gray-50 text-gray-500 border-gray-100',
+};
+
+const demos = [
+  {
+    id: 'registration',
+    label: 'Voter Registration',
+    q: "How do I register to vote for the first time?",
+    messages: [
+      { role: 'user', text: "How do I register to vote for the first time?" },
+      { role: 'bot', text: "Welcome — registering is easy! You have three options:\n\n→ **Online** at vote.gov (takes about 2 minutes)\n→ **In person** at the Elections Office, City Hall Room 104, Mon–Fri 8 AM–5 PM\n→ **By mail** — request a form at (413) 555-0100\n\n⏰ The deadline to register for the November election is **October 15**.\n\nWould you like step-by-step instructions for any of these?" },
+      { role: 'user', text: "What do I need to register?" },
+      { role: 'bot', text: "To register you'll need:\n• Your **current address** in the city\n• A **valid driver's license** or state ID number — OR the last 4 digits of your SSN\n• To be a **U.S. citizen** and at least 18 by Election Day\n\nIf you don't have a driver's license or SSN, you can still register by providing a copy of a current utility bill, bank statement, or other proof of residency." },
+    ],
+  },
+  {
+    id: 'absentee',
+    label: 'Mail Ballots',
+    q: "How do I get an absentee ballot?",
+    messages: [
+      { role: 'user', text: "I won't be in town on Election Day. How do I get an absentee ballot?" },
+      { role: 'bot', text: "No problem — here's how to vote by mail:\n\n**1. Request your ballot** by October 29 (one week before Election Day):\n   • Online: city.gov/absentee\n   • By phone: (413) 555-0100\n   • In person: Elections Office, City Hall\n\n**2. Complete and return** your ballot:\n   • By mail — must be postmarked by November 5\n   • Or drop it at any of our **3 secure ballot drop boxes**\n\n📍 **Drop box locations:**\n• City Hall lobby (open 24/7)\n• Main Library, 220 State St (6 AM–10 PM)\n• Eastside Community Center (7 AM–9 PM)" },
+      { role: 'user', text: "Can I track if my ballot was received?" },
+      { role: 'bot', text: "Yes! You can track your ballot at **city.gov/ballottracker** using your name and date of birth. You'll see:\n\n✉️ **Ballot requested** → sent to you\n📬 **Ballot mailed** → date it was sent\n✅ **Ballot received** → confirmed at our office\n🗳️ **Ballot counted** → after Election Day\n\nYou can also sign up for SMS updates when your ballot status changes." },
+    ],
+  },
+  {
+    id: 'election-day',
+    label: 'Election Day',
+    q: "What time do polls close?",
+    messages: [
+      { role: 'user', text: "What time do polls close today?" },
+      { role: 'bot', text: "Polls are open today from **7:00 AM to 8:00 PM**.\n\n⚖️ **Important:** If you are in line by 8:00 PM, you will be allowed to vote — no one in line at closing time can be turned away.\n\nDo you know where your polling place is?" },
+      { role: 'user', text: "Not sure — I live on Elm Street" },
+      { role: 'bot', text: "Based on Elm Street addresses, your polling place is likely **Lincoln Elementary School**, 45 Lincoln Ave — but let me give you the exact location.\n\n📍 Find your official polling place at **city.gov/myvote** — enter your full address for a guaranteed match.\n\n🅿️ Free parking is available in the school lot. The accessible entrance is on the Lincoln Ave side." },
+    ],
+  },
+  {
+    id: 'poll-worker',
+    label: 'Poll Workers',
+    q: "How do I become a poll worker?",
+    messages: [
+      { role: 'user', text: "I'd like to be a poll worker. How do I sign up?" },
+      { role: 'bot', text: "Thank you for wanting to serve! Poll workers are essential to every election. Here's what you need to know:\n\n**Requirements:**\n• Be a registered voter in the city\n• Be 18+ (or 16–17 with a school program)\n• Available for a full day on Election Day (approx. 6 AM–9 PM)\n\n**Compensation:**\n• $175–$225 per Election Day (varies by role)\n• Training is paid ($50 for the required 2-hour session)\n\n**Apply at:** city.gov/pollworker or call (413) 555-0200\n\nTraining sessions run in October — spots fill quickly!" },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Elections Department — Viv KM"
+  description="GovChat answers every voter question your elections office gets — registration, polling hours, absentee ballots — instantly, accurately, 24/7."
+>
+  <Nav />
+
+  <!-- ═══ HERO ═══ -->
+  <section class="relative bg-ink min-h-[85vh] flex items-center overflow-hidden pt-16">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-20 -left-40 w-[700px] h-[500px] bg-brand/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-[500px] h-[400px] bg-blue-900/20 rounded-full blur-3xl"></div>
+      <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <div class="flex items-center gap-2 mb-7">
+          <span class="text-xl">🗳️</span>
+          <span class="text-xs font-semibold text-brand uppercase tracking-widest">Elections Department</span>
+        </div>
+
+        <h1 class="text-4xl lg:text-[54px] font-black text-white leading-[1.07] tracking-tight mb-6">
+          Every election question,<br /><span class="text-brand">answered instantly.</span>
+        </h1>
+
+        <p class="text-lg text-gray-300 leading-relaxed max-w-lg mb-8">
+          Your elections office fields thousands of identical questions every cycle. Voter registration deadlines. Polling locations. Absentee ballot status. GovChat handles the surge — accurately, consistently, 24/7 — while your staff focuses on running the election.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a href="mailto:kalman@vivwebsolutions.com?subject=Elections Demo Request"
+             class="inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-semibold px-6 py-3.5 rounded-xl transition-all text-sm shadow-lg shadow-brand/25">
+            See a Live Demo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#kb-demo" class="inline-flex items-center gap-2 bg-white/8 border border-white/15 text-white font-semibold px-6 py-3.5 rounded-xl transition-all text-sm hover:bg-white/14">
+            See the Knowledge Base
+          </a>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+          {[
+            { n: '2,000+', label: 'common voter FAQ topics' },
+            { n: '73%', label: 'of election calls answerable by AI' },
+            { n: '10×', label: 'surge volume on Election Day' },
+          ].map(s => (
+            <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+              <div class="text-xl font-black text-white">{s.n}</div>
+              <div class="text-[11px] text-gray-400 mt-0.5 leading-tight">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Hero chatbot preview -->
+      <div class="hidden lg:block">
+        <div class="bg-[#0d1d35] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+          <!-- Chat header -->
+          <div class="flex items-center gap-3 px-4 py-3 border-b border-white/8 bg-white/3">
+            <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center shrink-0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">City Elections Assistant</div>
+              <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span class="text-[10px] text-emerald-400">Online</span></div>
+            </div>
+          </div>
+          <!-- Messages -->
+          <div class="p-4 space-y-3 min-h-[280px]">
+            <div class="flex gap-2.5">
+              <div class="w-6 h-6 rounded-full bg-brand/20 flex items-center justify-center shrink-0 mt-0.5">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#146FF8" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </div>
+              <div class="bg-white/8 border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-xs text-gray-200 leading-relaxed max-w-[80%]">
+                Hi! I'm the City Elections Assistant. I can help with voter registration, polling locations, absentee ballots, and more. What do you need?
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <div class="bg-brand/20 border border-brand/30 rounded-2xl rounded-tr-sm px-3.5 py-2.5 text-xs text-gray-100 max-w-[75%]">
+                Am I registered to vote?
+              </div>
+            </div>
+            <div class="flex gap-2.5">
+              <div class="w-6 h-6 rounded-full bg-brand/20 flex items-center justify-center shrink-0 mt-0.5">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#146FF8" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </div>
+              <div class="bg-white/8 border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-xs text-gray-200 leading-relaxed max-w-[80%]">
+                You can check your registration status in 30 seconds at <span class="text-brand underline">vote.gov/am-i-registered</span> — just enter your name, date of birth, and address.<br/><br/>
+                📋 Registration is open until <strong>October 15</strong>. If you're not registered yet, I can walk you through the process!
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <div class="bg-brand/20 border border-brand/30 rounded-2xl rounded-tr-sm px-3.5 py-2.5 text-xs text-gray-100 max-w-[75%]">
+                I moved last year — do I need to re-register?
+              </div>
+            </div>
+            <div class="flex gap-2.5">
+              <div class="w-6 h-6 rounded-full bg-brand/20 flex items-center justify-center shrink-0 mt-0.5">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#146FF8" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </div>
+              <div class="bg-white/8 border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-xs text-gray-200 leading-relaxed max-w-[80%]">
+                Yes — if you moved within the city you need to update your address, and if you moved from another city you need to re-register here. Both are quick at <span class="text-brand underline">city.gov/register</span>. Deadline is October 15.
+              </div>
+            </div>
+          </div>
+          <!-- Input -->
+          <div class="px-4 pb-4">
+            <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5">
+              <span class="text-xs text-gray-500 flex-1">Ask about voting, registration, ballots…</span>
+              <button class="w-6 h-6 bg-brand rounded-lg flex items-center justify-center shrink-0 cursor-default">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ REAL CONVERSATION DEMOS ═══ -->
+  <section class="bg-slate-50 border-y border-gray-100 py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center mb-12">
+        <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-3">Live Demos</div>
+        <h2 class="text-3xl font-black text-gray-900 mb-4">Real questions. Real answers. Approved by your team.</h2>
+        <p class="text-gray-500">Every response below comes from a knowledge base article your elections staff drafted, reviewed, and published — not a hallucinated AI answer.</p>
+      </div>
+
+      <!-- Tab bar -->
+      <div class="flex flex-wrap justify-center gap-2 mb-8" id="demo-tabs">
+        {demos.map((d, i) => (
+          <button
+            class:list={["demo-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all", i === 0 ? 'bg-brand text-white' : 'bg-white border border-gray-200 text-gray-600 hover:border-brand hover:text-brand']}
+            data-demo={d.id}
+          >
+            {d.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Demo panels -->
+      <div class="max-w-2xl mx-auto">
+        {demos.map((d, i) => (
+          <div id={`demo-${d.id}`} class:list={["demo-panel bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden", i !== 0 ? 'hidden' : '']}>
+            <!-- Chat header -->
+            <div class="flex items-center gap-3 px-5 py-3.5 border-b border-gray-100 bg-gray-50">
+              <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-gray-900">Elections Assistant</div>
+                <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span class="text-xs text-emerald-600">Online · Powered by Viv KM</span></div>
+              </div>
+            </div>
+            <!-- Messages -->
+            <div class="p-5 space-y-4">
+              {d.messages.map(m => (
+                <div class:list={["flex", m.role === 'user' ? 'justify-end' : 'gap-2.5']}>
+                  {m.role === 'bot' && (
+                    <div class="w-7 h-7 rounded-full bg-brand/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#146FF8" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    </div>
+                  )}
+                  <div class:list={[
+                    "px-4 py-3 rounded-2xl text-sm leading-relaxed max-w-[82%] whitespace-pre-line",
+                    m.role === 'user'
+                      ? 'bg-brand text-white rounded-tr-sm font-medium'
+                      : 'bg-gray-50 border border-gray-100 text-gray-700 rounded-tl-sm',
+                  ]} set:html={m.text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>')}>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div class="px-5 pb-4">
+              <div class="text-[11px] text-center text-gray-400">This answer came from a knowledge base article approved by your elections staff · <span class="text-brand">View article →</span></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ KNOWLEDGE BASE IN ACTION ═══ -->
+  <section id="kb-demo" class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-start">
+        <div>
+          <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-3">Knowledge Base</div>
+          <h2 class="text-3xl font-black text-gray-900 mb-5">Your KB grows with every election cycle.</h2>
+          <p class="text-gray-500 leading-relaxed mb-8">
+            Every question your staff answers becomes a reusable knowledge base article — reviewed, approved, and ready for the AI to answer next time. By your second election cycle, most questions never reach a human.
+          </p>
+          <div class="space-y-3">
+            {[
+              { label: '6 months out', text: 'Candidate filing FAQ loaded — 12 articles', color: 'bg-gray-100 text-gray-500' },
+              { label: '2 months out', text: 'Voter registration guides published — 8 articles', color: 'bg-blue-100 text-blue-600' },
+              { label: '6 weeks out', text: 'Early voting schedule & absentee info — 9 articles', color: 'bg-violet-100 text-violet-600' },
+              { label: '2 weeks out', text: 'Polling location updates pushed live — 4 articles', color: 'bg-amber-100 text-amber-600' },
+              { label: 'Election Day', text: 'Real-time surge — AI handles 90%+ of questions', color: 'bg-emerald-100 text-emerald-600' },
+              { label: 'Post-election', text: 'Results & certification FAQ auto-published — 5 articles', color: 'bg-brand/10 text-brand' },
+            ].map(s => (
+              <div class="flex items-start gap-3">
+                <span class:list={["text-[10px] font-bold px-2 py-1 rounded-md shrink-0 mt-0.5 whitespace-nowrap", s.color]}>{s.label}</span>
+                <span class="text-sm text-gray-600">{s.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- KB articles table -->
+        <div class="bg-slate-50 rounded-2xl border border-gray-100 overflow-hidden">
+          <div class="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between">
+            <span class="text-sm font-semibold text-gray-900">Elections Knowledge Base</span>
+            <span class="text-xs text-gray-400">{kbArticles.length} articles</span>
+          </div>
+          <div class="divide-y divide-gray-100">
+            {kbArticles.map(a => (
+              <div class="flex items-start gap-3 px-5 py-3 hover:bg-white transition-colors">
+                <div class="flex-1 min-w-0">
+                  <div class="text-sm font-medium text-gray-800 truncate">{a.title}</div>
+                  <div class="text-[11px] text-gray-400 mt-0.5">{a.dept}</div>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  {a.status === 'in_kb' && (
+                    <div class="text-[10px] text-gray-400">{a.answers.toLocaleString()}× auto-answered</div>
+                  )}
+                  <span class:list={["text-[10px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap", statusColor[a.status as keyof typeof statusColor]]}>
+                    {statusLabel[a.status as keyof typeof statusLabel]}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div class="px-5 py-3.5 border-t border-gray-100 bg-white">
+            <div class="text-[11px] text-gray-400">4,858 questions answered automatically this cycle · 0 staff hours used</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT ELECTIONS DEPARTMENTS GET ═══ -->
+  <section class="bg-slate-50 border-y border-gray-100 py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-3">Built for Elections</div>
+        <h2 class="text-3xl font-black text-gray-900">Designed for the questions your office actually gets.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {[
+          { icon: '📋', title: 'Voter Registration', body: 'First-time registration, address updates, registration status checks, deadline reminders — the #1 source of pre-election calls, handled automatically.' },
+          { icon: '📍', title: 'Polling & Early Voting', body: '"Where do I vote?" and "What time do polls close?" answered instantly with location-specific answers. Update once — every response is current.' },
+          { icon: '✉️', title: 'Absentee & Mail Ballots', body: 'Request process, deadlines, drop box locations, and ballot tracking — without a single call to your office. Works for first-time mail voters too.' },
+          { icon: '🏃', title: 'Candidate Filing', body: 'Nomination deadlines, signature requirements, campaign finance disclosure rules, and filing fees — all in one searchable, always-current knowledge base.' },
+          { icon: '👷', title: 'Poll Worker Recruitment', body: 'Eligibility, pay rates, training schedules, and the application link. Converts curious residents into applications without staff time.' },
+          { icon: '📊', title: 'Results & Certification', body: 'Why counting takes time, how results become certified, where to find unofficial and official results — reduces post-election confusion and misinformation.' },
+        ].map(f => (
+          <div class="bg-white rounded-2xl border border-gray-100 p-6 hover:border-brand/30 hover:shadow-md transition-all">
+            <div class="text-2xl mb-4">{f.icon}</div>
+            <h3 class="font-bold text-gray-900 mb-2">{f.title}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ELECTION DAY SURGE ═══ -->
+  <section class="bg-ink py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-4">Election Day</div>
+          <h2 class="text-3xl font-black text-white mb-6">Handle Election Day volume without adding staff.</h2>
+          <p class="text-gray-300 leading-relaxed mb-8">Election Day is a 10× traffic event for your office. The same questions flood in all day. GovChat absorbs the surge — letting your staff focus on voters who need real human help.</p>
+          <div class="space-y-4">
+            {[
+              { pct: '91%', label: 'of Election Day questions answered without staff' },
+              { pct: '< 2s', label: 'average response time, any question' },
+              { pct: '24/7', label: 'available the week before and after Election Day' },
+            ].map(s => (
+              <div class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl px-5 py-4">
+                <div class="text-2xl font-black text-brand shrink-0">{s.pct}</div>
+                <div class="text-sm text-gray-300">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+          <div class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-5">Election Day call volume — before vs. after</div>
+          <div class="space-y-4">
+            {[
+              { label: '"Where do I vote?"', before: 340, after: 12, pct: 96 },
+              { label: '"What time do polls close?"', before: 280, after: 8, pct: 97 },
+              { label: '"Can I still register?"', before: 195, after: 15, pct: 92 },
+              { label: '"Is my mail ballot counted?"', before: 160, after: 9, pct: 94 },
+              { label: '"I need to change my address"', before: 85, after: 85, pct: 0 },
+            ].map(q => (
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-[12px] text-gray-300">{q.label}</span>
+                  {q.pct > 0 ? (
+                    <span class="text-[11px] text-emerald-400 font-semibold">{q.pct}% handled by AI</span>
+                  ) : (
+                    <span class="text-[11px] text-gray-500">Needs human</span>
+                  )}
+                </div>
+                {q.pct > 0 && (
+                  <div class="h-1.5 bg-white/8 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-400/70 rounded-full" style={`width:${q.pct}%`}></div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="bg-gradient-to-br from-brand-dark via-brand to-blue-500 py-20">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <div class="text-sm font-semibold text-blue-100 mb-4">🗳️ Elections Department</div>
+      <h2 class="text-3xl font-black text-white mb-5">See it running on your elections site.</h2>
+      <p class="text-blue-100 mb-10 max-w-lg mx-auto">We'll set up a working demo on your actual WordPress site — with your real election topics and approved answers — so you can show it to your team and your elected officials.</p>
+      <a href="mailto:kalman@vivwebsolutions.com?subject=Elections Department Demo"
+         class="inline-flex items-center gap-2 bg-white text-brand font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-xl shadow-black/20 text-sm">
+        Request an Elections Demo
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Demo tab switching
+  document.querySelectorAll('.demo-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = (btn as HTMLElement).dataset.demo;
+      document.querySelectorAll('.demo-tab').forEach(t => {
+        t.classList.remove('bg-brand', 'text-white');
+        t.classList.add('bg-white', 'border', 'border-gray-200', 'text-gray-600');
+      });
+      btn.classList.add('bg-brand', 'text-white');
+      btn.classList.remove('bg-white', 'border', 'border-gray-200', 'text-gray-600');
+      document.querySelectorAll('.demo-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`demo-${id}`)?.classList.remove('hidden');
+    });
+  });
+</script>
