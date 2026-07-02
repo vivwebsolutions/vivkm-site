@@ -31,8 +31,15 @@ const forOrgs = [
     <!-- Logo -->
     <a href="/" class="flex items-center gap-3 mr-5 shrink-0" aria-label="Viv Knowledge Management">
       <svg class="h-9 w-auto shrink-0" viewBox="0 0 296.17 246.35" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Spinner star (gold) -->
-        <polygon fill="#d6b13a" fill-rule="evenodd" points="153.07,19.98 160.8,102.2 215.38,40.22 173.3,111.29 253.88,93.22 178.07,125.98 253.88,158.74 173.3,140.67 215.38,211.74 160.8,149.76 153.07,231.98 145.34,149.76 90.76,211.74 132.84,140.67 52.26,158.74 128.07,125.98 52.26,93.22 132.84,111.29 90.76,40.22 145.34,102.2" />
+        <defs>
+          <mask id="viv-nav-spinner-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="296.17" height="246.35">
+            <path d="M172.72,126.13 C172.72,116.60 162.28,111.29 152.35,111.29 C142.42,111.29 131.98,116.60 131.98,126.13 H0 V0.00 H296.17 V126.13 H172.72 Z" fill="#ffffff" fill-rule="evenodd"/>
+          </mask>
+        </defs>
+        <!-- Spinner star (gold, clipped to top area above letters) -->
+        <g mask="url(#viv-nav-spinner-mask)">
+          <polygon fill="#d6d351" fill-rule="evenodd" points="153.07,19.98 160.80,102.20 215.38,40.22 173.30,111.29 253.88,93.22 178.07,125.98 253.88,158.74 173.30,140.67 215.38,211.74 160.80,149.76 153.07,231.98 145.34,149.76 90.76,211.74 132.84,140.67 52.26,158.74 128.07,125.98 52.26,93.22 132.84,111.29 90.76,40.22 145.34,102.20" />
+        </g>
         <!-- Left V -->
         <polygon fill="white" fill-rule="evenodd" points="127.62,138.35 96.98,138.35 73.37,197.96 49.75,138.35 19.11,138.35 16.95,141.41 61.24,246.35 73.37,246.35 85.5,246.35 129.79,141.41 127.62,138.35" />
         <!-- Right V -->
@@ -40,7 +47,7 @@ const forOrgs = [
         <!-- Center I bar -->
         <polygon fill="white" fill-rule="evenodd" points="137.58,244.05 139.75,246.35 152.39,246.35 152.01,246.35 164.65,246.35 166.81,244.05 166.81,173.71 164.65,171.41 152.01,171.41 152.39,171.41 139.75,171.41 137.58,173.71 137.58,244.05" />
         <!-- I dot -->
-        <circle fill="white" r="16.12" cx="152.35" cy="146.85" />
+        <circle fill="white" r="16.12" transform="translate(152.35 146.85)" />
       </svg>
       <span class="w-px h-4 bg-white/20 shrink-0"></span>
       <span class="font-medium text-gray-400 text-[12px] tracking-tight leading-tight hidden sm:block">Knowledge<br/>Management</span>
