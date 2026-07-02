@@ -25,10 +25,14 @@ const forOrgs = [
 ];
 ---
 
-<style>
+<style is:global>
   #viv-nav-spinner {
     transform-origin: 153.07px 125.98px;
     animation: viv-spin 2.5s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  a:hover #viv-nav-spinner {
+    animation-play-state: running;
   }
   @keyframes viv-spin {
     from { transform: rotate(0deg); }
@@ -37,11 +41,11 @@ const forOrgs = [
 </style>
 
 <header class="fixed top-0 inset-x-0 z-50 border-b border-white/8 bg-ink/92 backdrop-blur-md" id="site-header">
-  <nav class="max-w-7xl mx-auto px-5 h-16 flex items-center gap-1">
+  <nav class="max-w-7xl mx-auto px-5 h-[72px] flex items-center gap-1">
 
     <!-- Logo -->
     <a href="/" class="flex items-center gap-3 mr-5 shrink-0" aria-label="Viv Knowledge Management">
-      <svg class="h-9 w-auto shrink-0" viewBox="0 0 296.17 246.35" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="h-11 w-auto shrink-0" viewBox="0 0 296.17 246.35" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <mask id="viv-nav-spinner-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="296.17" height="246.35">
             <path d="M172.72,126.13 C172.72,116.60 162.28,111.29 152.35,111.29 C142.42,111.29 131.98,116.60 131.98,126.13 H0 V0.00 H296.17 V126.13 H172.72 Z" fill="#ffffff" fill-rule="evenodd"/>
@@ -58,8 +62,8 @@ const forOrgs = [
         <polygon fill="white" fill-rule="evenodd" points="137.58,244.05 139.75,246.35 152.39,246.35 152.01,246.35 164.65,246.35 166.81,244.05 166.81,173.71 164.65,171.41 152.01,171.41 152.39,171.41 139.75,171.41 137.58,173.71 137.58,244.05" />
         <circle fill="white" r="16.12" transform="translate(152.35 146.85)" />
       </svg>
-      <span class="w-px h-4 bg-white/20 shrink-0"></span>
-      <span class="font-medium text-gray-400 text-[12px] tracking-tight leading-tight hidden sm:block">Knowledge<br/>Management</span>
+      <span class="w-px h-6 bg-white/25 shrink-0"></span>
+      <span class="font-medium text-gray-200 text-[13px] tracking-tight leading-tight hidden sm:block">Knowledge Management</span>
     </a>
 
     <!-- Desktop nav links -->
