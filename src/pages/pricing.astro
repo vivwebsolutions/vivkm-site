@@ -1,0 +1,264 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const tiers = [
+  {
+    name: 'Village',
+    pop: '< 15,000 residents',
+    setup: '$2,000',
+    annual: '$3,600',
+    mo: '$300',
+    highlight: false,
+    cta: 'Get Started',
+    features: [
+      'Viv GovChat AI chatbot',
+      'Resident knowledge base',
+      'KB editorial pipeline',
+      'AI quality gate',
+      'PII redaction',
+      'Staff dashboard',
+      'Up to 3 staff seats',
+      'Up to 500 chatbot convos/mo',
+      'Email support',
+    ],
+  },
+  {
+    name: 'Town',
+    pop: '15,000 – 75,000 residents',
+    setup: '$4,500',
+    annual: '$7,200',
+    mo: '$600',
+    highlight: false,
+    cta: 'Get Started',
+    features: [
+      'Everything in Village, plus:',
+      'Up to 10 staff seats',
+      'Up to 2,000 chatbot convos/mo',
+      '311 CRM integration (1 system)',
+      'Permit status lookup',
+      'SLA tracking & alerts',
+      'Priority email support',
+    ],
+  },
+  {
+    name: 'City',
+    pop: '75,000 – 300,000 residents',
+    setup: '$8,000',
+    annual: '$14,400',
+    mo: '$1,200',
+    highlight: true,
+    cta: 'Book a Demo',
+    features: [
+      'Everything in Town, plus:',
+      'Unlimited staff seats',
+      'Up to 10,000 chatbot convos/mo',
+      'All 311 CRM integrations',
+      'GIS / ArcGIS integration',
+      'Permit & license status lookup',
+      'Department routing with resident confirmation',
+      'Per-staff performance analytics',
+      'Dedicated onboarding call',
+      'Phone & email support',
+    ],
+  },
+  {
+    name: 'Metro',
+    pop: '300,000+ residents',
+    setup: 'Custom',
+    annual: 'Custom',
+    mo: null,
+    highlight: false,
+    cta: 'Contact Us',
+    features: [
+      'Everything in City, plus:',
+      'Unlimited chatbot conversations',
+      'Dedicated infrastructure',
+      'Custom integrations',
+      'SLA-backed uptime guarantee',
+      'Multi-department / multi-site',
+      'Multi-language support',
+      'Quarterly business reviews',
+      'Dedicated account manager',
+    ],
+  },
+];
+
+const faqs = [
+  {
+    q: 'What counts as a "chatbot conversation"?',
+    a: 'A conversation is one continuous session between a resident and the chatbot. It can include multiple messages back and forth. A resident asking 5 follow-up questions in one session counts as one conversation. Conversations that are resolved from the knowledge base without staff involvement are counted at a lower rate.',
+  },
+  {
+    q: 'Can I start on a lower tier and upgrade later?',
+    a: 'Yes. You can upgrade your tier at any time. You\'ll only pay the difference pro-rated to your renewal date. Your knowledge base, staff accounts, and all data carry over automatically — no migration needed.',
+  },
+  {
+    q: 'What does "setup" include?',
+    a: 'The one-time setup fee covers WordPress plugin installation and configuration, initial WordPress content indexing into the knowledge base, connection to your 311 CRM or other systems (tier-dependent), staff training session, and chatbot appearance customization to match your city branding.',
+  },
+  {
+    q: 'Is there a contract?',
+    a: 'No long-term contract required. Plans are billed annually, and you can cancel before renewal. We\'re confident you\'ll see value quickly, so we don\'t lock you in.',
+  },
+  {
+    q: 'Do you offer a trial?',
+    a: 'We offer a guided demo on your actual WordPress environment rather than a generic sandbox. This gives you a much more accurate picture of how Viv KM will work for your specific city. Book a demo and we\'ll set it up for you.',
+  },
+  {
+    q: 'What happens to our data if we cancel?',
+    a: 'You keep everything. All knowledge base articles, inquiry history, and staff data are exportable as CSV at any time. We provide a complete export upon cancellation. Your WordPress site continues to function normally — we just deactivate the plugin.',
+  },
+];
+---
+<Layout title="Pricing — Viv KM" description="Population-based pricing for municipal AI chatbot and knowledge management software. Starting from $3,600/year for small cities.">
+  <Nav current="pricing" />
+
+  <!-- Hero -->
+  <section class="bg-ink pt-40 pb-24 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute -top-20 right-1/4 w-[600px] h-[400px] bg-brand/10 rounded-full blur-3xl"></div>
+      <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px"></div>
+    </div>
+    <div class="relative max-w-4xl mx-auto px-6 text-center">
+      <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-4">Pricing</div>
+      <h1 class="text-4xl lg:text-5xl font-black text-white mb-5">Priced by population, not by seat.</h1>
+      <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+        One-time setup fee, then a low annual subscription. Your whole team is included.
+        No per-user charges, no platform fees, no surprises.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing tiers -->
+  <section class="bg-slate-50 py-20 border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {tiers.map(t => (
+          <div class:list={[
+            "bg-white rounded-2xl p-7 flex flex-col relative",
+            t.highlight ? 'border-2 border-brand shadow-2xl shadow-brand/15 ring-4 ring-brand/5' : 'border border-gray-100 shadow-sm',
+          ]}>
+            {t.highlight && (
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand text-white text-[11px] font-bold px-4 py-1 rounded-full">
+                Most Popular
+              </div>
+            )}
+
+            <div>
+              <div class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">{t.name}</div>
+              <div class="text-xs text-gray-400 mb-6">{t.pop}</div>
+
+              {t.mo ? (
+                <div class="mb-1">
+                  <span class="text-3xl font-black text-gray-900">{t.annual}</span>
+                  <span class="text-gray-400 text-sm"> / year</span>
+                </div>
+              ) : (
+                <div class="text-3xl font-black text-gray-900 mb-1">{t.annual}</div>
+              )}
+              <div class="text-sm text-gray-400 mb-7">
+                {t.setup} one-time setup
+                {t.mo && <span class="text-gray-300"> · {t.mo}/mo equivalent</span>}
+              </div>
+
+              <a href={t.cta === 'Contact Us' || t.cta === 'Book a Demo'
+                ? 'mailto:kalman@vivwebsolutions.com?subject=Viv KM ' + (t.name) + ' Plan'
+                : 'mailto:kalman@vivwebsolutions.com?subject=Viv KM ' + t.name + ' Plan'}
+                 class:list={[
+                   "block text-center text-sm font-bold py-3 rounded-xl transition-all mb-8",
+                   t.highlight ? 'bg-brand text-white hover:bg-brand-dark shadow-md shadow-brand/25' : 'bg-gray-50 text-gray-800 hover:bg-gray-100 border border-gray-200',
+                 ]}>
+                {t.cta}
+              </a>
+
+              <ul class="space-y-2.5">
+                {t.features.map((f, i) => (
+                  <li class:list={["flex items-start gap-2.5 text-sm", i === 0 && f.includes('Everything') ? 'font-semibold text-gray-700' : 'text-gray-500']}>
+                    {!(i === 0 && f.includes('Everything')) && (
+                      <svg class:list={["shrink-0 mt-0.5", t.highlight ? 'text-brand' : 'text-gray-300']} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    )}
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Usage note -->
+      <div class="mt-8 bg-white rounded-xl border border-gray-100 p-6 flex items-start gap-4 max-w-3xl mx-auto">
+        <svg class="text-brand shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          <strong class="text-gray-700">Usage-based overages:</strong> If your chatbot exceeds the monthly conversation limit for your tier, additional conversations are billed at $0.25 each.
+          Most cities find their usage falls well within limits — we'll flag it before you get close.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's included everywhere -->
+  <section class="bg-white py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl lg:text-3xl font-black text-gray-900 mb-3">Included on every plan</h2>
+        <p class="text-gray-500">These aren't premium add-ons. They're the foundation of what makes Viv KM worth using.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+        {[
+          { icon: '🛡️', title: 'AI quality gate', body: 'Legal, ADA, and litigation inquiries automatically blocked from your public KB' },
+          { icon: '🔒', title: 'PII redaction', body: 'SSNs, account numbers, medical data, and names redacted before any publish' },
+          { icon: '📋', title: 'Editorial pipeline', body: 'Full ticket → review → approve → publish workflow, no exceptions' },
+          { icon: '🔌', title: 'WordPress plugin', body: 'Installs in minutes on your existing site. No CMS change required.' },
+          { icon: '📊', title: 'Staff analytics', body: 'Response times, SLA compliance, per-staff metrics, workload by department' },
+          { icon: '📤', title: 'Data export', body: 'Export your entire knowledge base and inquiry history at any time, in any format' },
+        ].map(item => (
+          <div class="flex items-start gap-4 p-5 rounded-xl bg-slate-50 border border-gray-100">
+            <div class="text-2xl">{item.icon}</div>
+            <div>
+              <div class="font-semibold text-gray-900 text-sm mb-1">{item.title}</div>
+              <div class="text-xs text-gray-500 leading-relaxed">{item.body}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-slate-50 border-t border-gray-100 py-20">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-2xl lg:text-3xl font-black text-gray-900 text-center mb-12">Frequently asked questions</h2>
+
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <details class="bg-white rounded-xl border border-gray-100 overflow-hidden group">
+            <summary class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-gray-900 text-sm list-none select-none">
+              {faq.q}
+              <svg class="shrink-0 text-gray-400 transition-transform group-open:rotate-180" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="px-6 pb-6 text-sm text-gray-500 leading-relaxed">{faq.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="bg-ink py-20">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-black text-white mb-4">Still have questions?</h2>
+      <p class="text-gray-400 mb-8">We'll walk you through the right tier for your city's size and needs, and show you the product on a 30-minute demo call.</p>
+      <a href="mailto:kalman@vivwebsolutions.com?subject=Viv KM Pricing Question"
+         class="inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-semibold px-8 py-4 rounded-xl transition-colors shadow-lg shadow-brand/25">
+        Talk to Us
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

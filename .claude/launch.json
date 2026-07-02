@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "vivkm-site",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 4175,
+      "cwd": "/Users/kalmangacs/Documents/MMA search/vivkm-site"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+---
+const { current = '' } = Astro.props;
+---
+<header class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-ink/80 backdrop-blur-md">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5 text-white font-bold text-lg tracking-tight">
+      <div class="w-8 h-8 rounded-lg bg-brand flex items-center justify-center text-white font-bold text-sm shrink-0">V</div>
+      Viv KM
+    </a>
+
+    <div class="hidden md:flex items-center gap-1">
+      <a href="/" class:list={["px-4 py-2 rounded-lg text-sm font-medium transition-colors", current === 'home' ? 'text-white bg-white/10' : 'text-gray-300 hover:text-white hover:bg-white/8']}>
+        Product
+      </a>
+      <a href="/integrations" class:list={["px-4 py-2 rounded-lg text-sm font-medium transition-colors", current === 'integrations' ? 'text-white bg-white/10' : 'text-gray-300 hover:text-white hover:bg-white/8']}>
+        Integrations
+      </a>
+      <a href="/pricing" class:list={["px-4 py-2 rounded-lg text-sm font-medium transition-colors", current === 'pricing' ? 'text-white bg-white/10' : 'text-gray-300 hover:text-white hover:bg-white/8']}>
+        Pricing
+      </a>
+    </div>
+
+    <a href="mailto:kalman@vivwebsolutions.com?subject=Viv KM Demo Request"
+       class="inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+      Book a Demo
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </nav>
+</header>

@@ -1,0 +1,342 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout>
+  <Nav current="home" />
+
+  <!-- ═══ HERO ═══ -->
+  <section class="relative bg-ink min-h-screen flex items-center overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-1/4 -left-40 w-[600px] h-[600px] bg-brand/15 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-900/30 rounded-full blur-3xl"></div>
+      <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-6 pt-32 pb-20 grid lg:grid-cols-2 gap-16 items-center w-full">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-brand/15 border border-brand/30 text-brand-light text-xs font-semibold px-3.5 py-1.5 rounded-full mb-8 tracking-wide">
+          <span class="w-1.5 h-1.5 bg-brand rounded-full animate-pulse"></span>
+          Now in early access · Built for municipal governments
+        </div>
+
+        <h1 class="text-5xl lg:text-[64px] font-black text-white leading-[1.04] tracking-tight mb-6">
+          Only answer it<br /><span class="text-brand">once.</span>
+        </h1>
+
+        <p class="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg mb-10">
+          Viv KM turns every resident inquiry into a growing knowledge base — reviewed by your team, redacted for privacy, then answered automatically by your AI chatbot.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a href="mailto:kalman@vivwebsolutions.com?subject=Viv KM Demo Request"
+             class="inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-semibold px-6 py-3.5 rounded-xl transition-all text-sm shadow-lg shadow-brand/25 hover:shadow-brand/40">
+            Book a Demo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/pricing"
+             class="inline-flex items-center gap-2 bg-white/8 hover:bg-white/14 border border-white/15 text-white font-semibold px-6 py-3.5 rounded-xl transition-all text-sm">
+            See Pricing
+          </a>
+        </div>
+
+        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400">
+          {['No CMS migration', 'WordPress plugin', 'Population-based pricing'].map(f => (
+            <div class="flex items-center gap-2">
+              <svg class="text-green-400 shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              {f}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Hero visual: live pipeline mockup -->
+      <div class="hidden lg:flex flex-col gap-3.5">
+        <!-- Inquiry card -->
+        <div class="bg-white/[.07] border border-white/[.12] rounded-2xl p-5 backdrop-blur-sm">
+          <div class="flex items-center justify-between mb-3.5">
+            <div class="flex items-center gap-2.5">
+              <div class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+              <span class="text-xs font-mono text-gray-400">INQ-2847 · City Clerk</span>
+            </div>
+            <span class="text-xs bg-amber-400/15 text-amber-300 border border-amber-400/20 px-2.5 py-0.5 rounded-full font-semibold">Under Review</span>
+          </div>
+          <p class="text-sm text-gray-100 mb-4 leading-relaxed">"How do I contest a parking ticket I got on Oak Street last Tuesday?"</p>
+          <div class="space-y-1.5 mb-4">
+            <div class="flex items-center gap-2 text-xs text-gray-400">
+              <svg class="text-emerald-400 shrink-0" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              AI quality check passed — appropriate for knowledge base
+            </div>
+            <div class="flex items-center gap-2 text-xs text-gray-400">
+              <svg class="text-emerald-400 shrink-0" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              PII scan complete — no sensitive data detected
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button class="flex-1 bg-brand text-white text-xs font-semibold py-2 rounded-lg cursor-default">Approve &amp; Publish</button>
+            <button class="px-3.5 bg-white/8 border border-white/10 text-gray-300 text-xs font-medium py-2 rounded-lg cursor-default">Edit</button>
+          </div>
+        </div>
+
+        <!-- Arrow connector -->
+        <div class="flex items-center gap-2 px-5">
+          <div class="h-px flex-1 bg-white/10"></div>
+          <svg class="text-gray-500" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+          <div class="h-px flex-1 bg-white/10"></div>
+        </div>
+
+        <!-- Published KB article -->
+        <div class="bg-white/[.05] border border-white/[.1] rounded-2xl p-5 backdrop-blur-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+              <span class="text-xs text-gray-400">Knowledge Base · Published</span>
+            </div>
+            <span class="text-xs bg-emerald-400/15 text-emerald-300 border border-emerald-400/20 px-2.5 py-0.5 rounded-full font-semibold">In KB</span>
+          </div>
+          <p class="text-sm font-semibold text-white mb-1.5">How to Contest a Parking Ticket</p>
+          <p class="text-xs text-gray-400 leading-relaxed">You have 21 days from the issue date to appeal. Visit City Hall Room 104 or submit your appeal online at…</p>
+          <div class="mt-3.5 pt-3 border-t border-white/8 flex items-center gap-4 text-xs text-gray-500">
+            <span class="flex items-center gap-1">👍 47 helpful votes</span>
+            <span>·</span>
+            <span>Answered 312× automatically</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-gray-600 text-xs">
+      <svg class="animate-bounce" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ═══ PROBLEM → SOLUTION ═══ -->
+  <section class="bg-slate-50 py-24 border-y border-gray-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center mb-16">
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Your staff is answering the same questions over and over.</h2>
+        <p class="text-lg text-gray-500">Every recycling schedule question, every parking appeal, every permit process — answered individually, then immediately forgotten. Viv KM stops that loop.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl border border-red-100 p-8">
+          <div class="text-xs font-semibold text-red-400 uppercase tracking-widest mb-5">Without Viv KM</div>
+          <ul class="space-y-4 text-sm text-gray-600">
+            {[
+              'Resident emails: "How do I appeal a parking ticket?"',
+              'Staff types the same answer for the 200th time',
+              'Next resident asks. Staff types it again.',
+              'No record of what was said or by whom',
+              'New staff member has to learn everything from scratch',
+              'No way to know what questions residents ask most',
+            ].map(item => (
+              <li class="flex items-start gap-3">
+                <svg class="text-red-300 shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-emerald-100 p-8">
+          <div class="text-xs font-semibold text-emerald-500 uppercase tracking-widest mb-5">With Viv KM</div>
+          <ul class="space-y-4 text-sm text-gray-600">
+            {[
+              'Resident asks. Staff replies once, AI drafts the KB article.',
+              'Team reviews, approves, and publishes in minutes',
+              'AI chatbot answers every future version of that question',
+              'Full audit trail: who replied, when, what was changed',
+              'New staff inherit the entire institutional knowledge base',
+              'Analytics show what residents ask, how fast you respond',
+            ].map(item => (
+              <li class="flex items-start gap-3">
+                <svg class="text-emerald-400 shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ═══ -->
+  <section class="bg-white py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center mb-16">
+        <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-3">How It Works</div>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900">From resident question to AI-powered answer — in four steps.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-6 relative">
+        <!-- Connector line -->
+        <div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent"></div>
+
+        {[
+          { n: '1', title: 'Resident asks', body: 'A question arrives via your chatbot, email, or web form — and lands in the Viv KM inbox as a structured inquiry.', color: 'bg-blue-50 text-blue-600 border-blue-100' },
+          { n: '2', title: 'Staff replies, AI assists', body: 'Your team drafts a reply. The AI suggests an answer based on your existing knowledge base, saving writing time.', color: 'bg-violet-50 text-violet-600 border-violet-100' },
+          { n: '3', title: 'Review & redact', body: 'AI checks for legal risk and PII. Your team approves the article before it ever touches your public knowledge base.', color: 'bg-amber-50 text-amber-600 border-amber-100' },
+          { n: '4', title: 'Published forever', body: 'The article goes live. Every future version of that question is answered automatically — no staff time required.', color: 'bg-emerald-50 text-emerald-600 border-emerald-100' },
+        ].map(step => (
+          <div class="relative flex flex-col items-center text-center">
+            <div class:list={["w-10 h-10 rounded-xl border-2 flex items-center justify-center text-sm font-black mb-5 relative z-10 bg-white", step.color]}>
+              {step.n}
+            </div>
+            <h3 class="font-bold text-gray-900 mb-2 text-[15px]">{step.title}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">{step.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FEATURES ═══ -->
+  <section class="bg-slate-50 py-24 border-y border-gray-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center mb-16">
+        <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-3">Features</div>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900">Every feature built for how municipal governments actually work.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {[
+          {
+            icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18M3 9h18M3 15h12M3 21h8"/><circle cx="20" cy="18" r="3"/><path d="M17.5 20.5L22 25"/></svg>`,
+            title: 'KB Editorial Pipeline',
+            body: 'Every reply goes through a structured ticket → review → approve → publish workflow. No draft ever reaches the public without your team\'s sign-off.',
+            badge: null,
+          },
+          {
+            icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+            title: 'AI Quality Gate',
+            body: 'Inquiries involving legal threats, personal diagnoses, civil litigation, or ADA demands are automatically flagged and kept out of your public KB.',
+            badge: 'Unique to Viv KM',
+          },
+          {
+            icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><line x1="12" y1="15" x2="12" y2="17"/></svg>`,
+            title: 'PII Redaction',
+            body: 'Before any content is published, AI identifies and redacts names, Social Security numbers, account numbers, medical records, and immigration information.',
+            badge: 'Unique to Viv KM',
+          },
+          {
+            icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+            title: 'WordPress Plugin',
+            body: 'Runs as a plugin on the WordPress website your city already manages. No CMS migration, no new platform, no retraining — just activate and go.',
+            badge: 'No migration needed',
+          },
+          {
+            icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+            title: 'Staff Performance Analytics',
+            body: 'Track response times, SLA compliance, per-staff workload, and sentiment trends from a single dashboard. Know exactly how your team is performing.',
+            badge: 'Unique to Viv KM',
+          },
+          {
+            icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+            title: 'Works With Your Systems',
+            body: 'Connects to SeeClickFix, Tyler Technologies, Accela, Salesforce, Cityworks, Esri ArcGIS, and the 311 CRM your city already runs.',
+            badge: null,
+          },
+        ].map(f => (
+          <div class="bg-white rounded-2xl border border-gray-100 p-7 hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5 transition-all group">
+            <div class="w-11 h-11 rounded-xl bg-brand/8 text-brand flex items-center justify-center mb-5 group-hover:bg-brand group-hover:text-white transition-all" set:html={f.icon}></div>
+            <div class="flex items-start justify-between gap-3 mb-2.5">
+              <h3 class="font-bold text-gray-900">{f.title}</h3>
+              {f.badge && <span class="text-[10px] font-semibold text-brand bg-brand/8 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">{f.badge}</span>}
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed">{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ INTEGRATIONS MARQUEE ═══ -->
+  <section class="bg-ink py-20 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 text-center mb-12">
+      <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-3">Integrations</div>
+      <h2 class="text-2xl lg:text-3xl font-black text-white mb-4">Works with the systems your city already uses.</h2>
+      <p class="text-gray-400 max-w-xl mx-auto">Connect Viv KM to your 311 CRM, permitting system, GIS platform, and more. Our integration list grows with every deployment.</p>
+    </div>
+
+    <div class="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <div class="flex gap-4 animate-marquee whitespace-nowrap">
+        {['SeeClickFix', 'Tyler Technologies', 'Accela', 'Salesforce', 'Microsoft Dynamics 365', 'Esri ArcGIS', 'ServiceNow', 'Cityworks', 'QAlert / Catalis', 'WordPress', 'Open311 API', 'Granicus OneView', 'SeeClickFix', 'Tyler Technologies', 'Accela', 'Salesforce', 'Microsoft Dynamics 365', 'Esri ArcGIS', 'ServiceNow', 'Cityworks', 'QAlert / Catalis', 'WordPress', 'Open311 API', 'Granicus OneView'].map(name => (
+          <div class="flex items-center gap-2.5 bg-white/[.06] border border-white/[.1] text-gray-300 text-sm font-medium px-5 py-2.5 rounded-full shrink-0">
+            <div class="w-1.5 h-1.5 rounded-full bg-brand/60"></div>
+            {name}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="/integrations"
+         class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
+        See all integrations
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ PRICING PREVIEW ═══ -->
+  <section class="bg-white py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center mb-16">
+        <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-3">Pricing</div>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Priced for communities of every size.</h2>
+        <p class="text-lg text-gray-500">Population-based tiers with a one-time setup and a low annual subscription. No per-seat fees, no usage surprises.</p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-5 mb-10">
+        {[
+          { tier: 'Village', pop: '< 15,000', setup: '$2,000', annual: '$3,600 / year', color: 'border-gray-100', highlight: false },
+          { tier: 'Town', pop: '15,000 – 75,000', setup: '$4,500', annual: '$7,200 / year', color: 'border-gray-100', highlight: false },
+          { tier: 'City', pop: '75,000 – 300,000', setup: '$8,000', annual: '$14,400 / year', color: 'border-brand', highlight: true },
+          { tier: 'Metro', pop: '300,000+', setup: 'Custom', annual: 'Custom pricing', color: 'border-gray-100', highlight: false },
+        ].map(t => (
+          <div class:list={["rounded-2xl border-2 p-7 relative", t.color, t.highlight ? 'shadow-xl shadow-brand/10' : '']}>
+            {t.highlight && <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-bold text-white bg-brand px-3 py-1 rounded-full">Most Popular</div>}
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">{t.tier}</div>
+            <div class="text-xs text-gray-400 mb-5">{t.pop} residents</div>
+            <div class="text-2xl font-black text-gray-900 mb-0.5">{t.annual.split('/')[0]}</div>
+            <div class="text-xs text-gray-400 mb-4">per year · {t.setup} one-time setup</div>
+            <a href="/pricing"
+               class:list={["block text-center text-sm font-semibold py-2.5 rounded-xl transition-all", t.highlight ? 'bg-brand text-white hover:bg-brand-dark' : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-100']}>
+              {t.tier === 'Metro' ? 'Contact Us' : 'Get Started'}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <a href="/pricing" class="text-sm text-brand font-semibold hover:underline">
+          View full pricing details including what's included at each tier →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ═══ -->
+  <section class="bg-gradient-to-br from-brand-dark via-brand to-blue-500 py-24">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl lg:text-4xl font-black text-white mb-5">Ready to stop answering the same questions?</h2>
+      <p class="text-lg text-blue-100 mb-10 max-w-xl mx-auto">
+        Book a 30-minute demo. We'll show you how Viv KM fits into your existing WordPress site and connects to your current systems.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="mailto:kalman@vivwebsolutions.com?subject=Viv KM Demo Request"
+           class="inline-flex items-center gap-2 bg-white text-brand font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors text-sm shadow-xl shadow-black/20">
+          Book a Demo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/integrations"
+           class="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white font-semibold px-8 py-4 rounded-xl hover:bg-white/25 transition-colors text-sm">
+          Explore Integrations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const categories = [
+  {
+    title: '311 & Citizen Request Management',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>`,
+    color: 'bg-blue-50 text-blue-600',
+    description: 'Route chatbot conversations directly into your existing 311 CRM. Submit service requests in-conversation, look up ticket status by address, and auto-route issues to the right department.',
+    items: [
+      { name: 'SeeClickFix (CivicPlus)', tags: ['Auto-submit requests', 'Status lookup', 'Open311 API'], note: 'Used by 250+ US cities' },
+      { name: 'Tyler Technologies EnerGov', tags: ['Permit status', 'Service requests', 'Status lookup'] },
+      { name: 'Accela', tags: ['Service requests', 'Permit lookup', 'Two-way sync'] },
+      { name: 'Cityworks (Trimble)', tags: ['Work orders', 'Service requests', 'Two-way sync'] },
+      { name: 'QAlert / Catalis', tags: ['Service requests', 'Status lookup', 'Live sync'] },
+      { name: 'Granicus OneView', tags: ['311 CRM', 'Service management', 'Dynamics integration'] },
+      { name: 'Microsoft Dynamics 365', tags: ['Case management', 'Service requests', 'Custom workflows'] },
+      { name: 'Open311 GeoReport v2', tags: ['Standard API', 'Any compliant city', 'Auto-submit'], note: 'Reaches 30+ US cities directly' },
+    ],
+  },
+  {
+    title: 'GIS & Location Intelligence',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    color: 'bg-emerald-50 text-emerald-600',
+    description: 'Give residents location-aware answers. Look up which district a property is in, confirm service boundaries, and provide address-specific information automatically.',
+    items: [
+      { name: 'Esri ArcGIS Online', tags: ['Parcel lookup', 'District boundaries', 'Service layers'], note: 'Industry standard for municipal GIS' },
+      { name: 'OpenStreetMap / Nominatim', tags: ['Geocoding', 'Address validation', 'Open source'] },
+      { name: 'Google Maps Platform', tags: ['Address lookup', 'Directions', 'Embed maps'] },
+    ],
+  },
+  {
+    title: 'Permitting & Licensing',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+    color: 'bg-violet-50 text-violet-600',
+    description: 'Let residents ask about their permit status, schedule inspections, and get process guidance — all without calling the permit office.',
+    items: [
+      { name: 'Tyler EnerGov', tags: ['Permit status', 'Inspection scheduling', 'Application lookup'] },
+      { name: 'Accela Civic Platform', tags: ['Permit lookup', 'License status', 'Inspection requests'] },
+      { name: 'OpenGov Permitting', tags: ['Status lookup', 'Application tracking'] },
+    ],
+  },
+  {
+    title: 'Website & CMS',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>`,
+    color: 'bg-amber-50 text-amber-600',
+    description: 'Viv KM installs directly into WordPress — no migration required. Your existing content automatically seeds the knowledge base.',
+    items: [
+      { name: 'WordPress', tags: ['Native plugin', 'No migration', 'Existing content'], note: 'Primary platform — install in minutes' },
+      { name: 'WP Grid Builder', tags: ['Faceted search', 'Filter integration'] },
+      { name: 'Typesense', tags: ['Search index', 'AI-powered search', 'Sub-50ms queries'] },
+    ],
+  },
+  {
+    title: 'Analytics & Reporting',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+    color: 'bg-rose-50 text-rose-600',
+    description: 'Export inquiry data and performance metrics to the analytics tools your leadership team already uses.',
+    items: [
+      { name: 'Viv KM Dashboard', tags: ['Built-in analytics', 'No setup needed', 'Staff metrics'], note: 'Included with every plan' },
+      { name: 'Google Analytics 4', tags: ['Chatbot usage', 'Conversion tracking', 'Traffic source'] },
+      { name: 'CSV Export', tags: ['All inquiry data', 'Scheduled reports', 'BI-ready'] },
+    ],
+  },
+];
+---
+<Layout title="Integrations — Viv KM" description="Viv KM connects to SeeClickFix, Tyler Technologies, Accela, Salesforce, ArcGIS, and the systems your city already uses.">
+  <Nav current="integrations" />
+
+  <!-- Hero -->
+  <section class="bg-ink pt-40 pb-24 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand/10 rounded-full blur-3xl"></div>
+      <div class="absolute inset-0" style="background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px"></div>
+    </div>
+    <div class="relative max-w-4xl mx-auto px-6 text-center">
+      <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-4">Integrations</div>
+      <h1 class="text-4xl lg:text-5xl font-black text-white mb-6">Your systems, connected.</h1>
+      <p class="text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto mb-10">
+        Viv KM plugs into the 311 CRM, permitting software, GIS tools, and website platform your city already runs.
+        No replacements. No migrations. Just connection.
+      </p>
+      <div class="inline-flex items-center gap-3 bg-white/8 border border-white/15 text-gray-300 text-sm px-5 py-3 rounded-xl">
+        <svg class="text-brand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Don't see your system? <a href="mailto:kalman@vivwebsolutions.com?subject=Viv KM Integration Request" class="text-brand hover:underline font-medium">We'll build it →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integration categories -->
+  <section class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-6 space-y-16">
+      {categories.map(cat => (
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class:list={["w-10 h-10 rounded-xl flex items-center justify-center shrink-0", cat.color]}>
+              <Fragment set:html={cat.icon} />
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">{cat.title}</h2>
+              <p class="text-sm text-gray-500 mt-0.5">{cat.description}</p>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {cat.items.map(item => (
+              <div class="bg-white rounded-xl border border-gray-100 p-5 hover:border-brand/30 hover:shadow-md hover:shadow-brand/5 transition-all">
+                <div class="font-semibold text-gray-900 text-sm mb-2.5">{item.name}</div>
+                <div class="flex flex-wrap gap-1.5 mb-3">
+                  {item.tags.map(tag => (
+                    <span class="text-[10px] font-semibold bg-gray-50 border border-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{tag}</span>
+                  ))}
+                </div>
+                {item.note && <p class="text-[11px] text-brand font-medium">{item.note}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 311 explainer callout -->
+  <section class="bg-slate-50 border-y border-gray-100 py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="bg-white rounded-2xl border border-brand/20 p-10 shadow-sm">
+        <div class="text-xs font-semibold text-brand uppercase tracking-widest mb-4">311 Integration Deep Dive</div>
+        <h3 class="text-2xl font-black text-gray-900 mb-4">What does "311 integration" actually mean for residents?</h3>
+        <div class="grid md:grid-cols-3 gap-8 text-sm text-gray-600">
+          {[
+            { title: 'Submit requests in-conversation', body: 'A resident reports a pothole through your chatbot. Viv KM creates the service request in SeeClickFix or Accela automatically — no redirect to a separate portal.' },
+            { title: 'Live ticket status lookup', body: 'Residents ask "Where is my request?" and the chatbot queries your 311 CRM by address or request ID and returns live status — 24/7, without staff involvement.' },
+            { title: 'Automatic department routing', body: 'The chatbot identifies the right department from the conversation and routes the inquiry correctly, reducing misrouted tickets and the back-and-forth that comes with them.' },
+          ].map(item => (
+            <div>
+              <div class="w-6 h-6 bg-brand/10 rounded-md flex items-center justify-center mb-3">
+                <svg class="text-brand" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <h4 class="font-bold text-gray-900 mb-2">{item.title}</h4>
+              <p>{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-ink py-20">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-black text-white mb-5">Don't see your system on the list?</h2>
+      <p class="text-gray-400 mb-8 max-w-xl mx-auto">We build integrations for each deployment. If your city runs a platform not shown here, get in touch — chances are we can connect it.</p>
+      <a href="mailto:kalman@vivwebsolutions.com?subject=Viv KM Integration Request"
+         class="inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-semibold px-7 py-3.5 rounded-xl transition-colors text-sm">
+        Request an Integration
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
