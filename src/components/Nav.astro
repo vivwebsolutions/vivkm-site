@@ -18,10 +18,10 @@ const departments = [
 ];
 
 const forOrgs = [
-  { label: 'Small Cities & Towns', sub: 'Under 75,000 residents', href: '#', soon: true },
-  { label: 'Counties', sub: 'Multi-department county governments', href: '#', soon: true },
-  { label: 'Municipalities', sub: 'Full municipal deployment', href: '#', soon: true },
-  { label: 'Single Department', sub: 'Start with one team, expand later', href: '#', soon: true },
+  { label: 'Cities & Towns', sub: 'Incorporated municipal governments', href: '#', icon: '🏛️', soon: true, hasDepts: true },
+  { label: 'Counties', sub: 'Multi-department county governments', href: '#', icon: '🗺️', soon: true },
+  { label: 'Special Districts', sub: 'Water, fire, utility & sanitation authorities', href: '#', icon: '🔧', soon: true },
+  { label: 'State Agencies', sub: 'State-level departments & offices', href: '#', icon: '🏢', soon: true },
 ];
 ---
 
@@ -137,12 +137,45 @@ const forOrgs = [
           For
           <svg class="transition-transform duration-150 group-hover/for:rotate-180" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="absolute top-full left-0 pt-2 w-[240px] invisible opacity-0 pointer-events-none group-hover/for:visible group-hover/for:opacity-100 group-hover/for:pointer-events-auto transition-all duration-150 z-50">
+        <div class="absolute top-full left-0 pt-2 w-[260px] invisible opacity-0 pointer-events-none group-hover/for:visible group-hover/for:opacity-100 group-hover/for:pointer-events-auto transition-all duration-150 z-50">
           <div class="bg-[#0d1d35] border border-white/10 rounded-2xl shadow-2xl shadow-black/40 p-2.5">
-            {forOrgs.map(o => (
-              <div class="flex flex-col px-3 py-2 rounded-xl opacity-40 cursor-not-allowed select-none">
-                <div class="text-[13px] font-medium text-white flex items-center gap-2">{o.label} <span class="text-[9px] font-bold bg-white/10 text-gray-400 px-1.5 py-0.5 rounded-full">SOON</span></div>
-                <div class="text-[11px] text-gray-500">{o.sub}</div>
+            {forOrgs.map(o => o.hasDepts ? (
+              <!-- Cities & Towns: hoverable row with departments flyout -->
+              <div class="relative group/cities">
+                <div class="flex items-center gap-3 px-3 py-2 rounded-xl opacity-40 hover:opacity-60 transition-opacity cursor-default select-none">
+                  <span class="text-base leading-none">{o.icon}</span>
+                  <div class="flex-1">
+                    <div class="text-[13px] font-medium text-white flex items-center gap-2">{o.label} <span class="text-[9px] font-bold bg-white/10 text-gray-400 px-1.5 py-0.5 rounded-full">SOON</span></div>
+                    <div class="text-[11px] text-gray-500">{o.sub}</div>
+                  </div>
+                  <svg class="text-gray-500 shrink-0" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+                <!-- Departments flyout panel -->
+                <div class="absolute top-0 left-full pl-2 w-[260px] invisible opacity-0 pointer-events-none group-hover/cities:visible group-hover/cities:opacity-100 group-hover/cities:pointer-events-auto transition-all duration-150 z-50">
+                  <div class="bg-[#0d1d35] border border-white/10 rounded-2xl shadow-2xl shadow-black/40 p-2.5">
+                    <div class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider px-3 pt-1 pb-2">Departments</div>
+                    {departments.map(d => (
+                      <div class="flex items-center gap-3 px-3 py-2 rounded-xl opacity-40 cursor-not-allowed select-none">
+                        <span class="text-base leading-none">{d.icon}</span>
+                        <div>
+                          <div class="text-[13px] font-medium text-white flex items-center gap-2">
+                            {d.label}
+                            {d.soon && <span class="text-[9px] font-bold bg-white/10 text-gray-400 px-1.5 py-0.5 rounded-full">SOON</span>}
+                          </div>
+                          <div class="text-[11px] text-gray-500">{d.sub}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div class="flex items-center gap-3 px-3 py-2 rounded-xl opacity-40 cursor-not-allowed select-none">
+                <span class="text-base leading-none">{o.icon}</span>
+                <div class="flex-1">
+                  <div class="text-[13px] font-medium text-white flex items-center gap-2">{o.label} <span class="text-[9px] font-bold bg-white/10 text-gray-400 px-1.5 py-0.5 rounded-full">SOON</span></div>
+                  <div class="text-[11px] text-gray-500">{o.sub}</div>
+                </div>
               </div>
             ))}
           </div>
